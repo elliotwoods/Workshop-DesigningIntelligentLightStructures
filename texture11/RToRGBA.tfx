@@ -1,0 +1,18 @@
+Texture2D<float> tex0: PREVIOUS;
+float2 R:TARGETSIZE;
+
+cbuffer controls:register(b0){
+	float Alpha <float uimin=0.0;float uimax=1.0;> =1.0;
+};
+
+float4 pRToRGBA(float4 PosWVP:SV_POSITION,float2 x:TEXCOORD0):SV_TARGET{
+    float value = tex0[R * x] * Alpha;
+	return float4(value, value, value, 1.0f);
+}
+
+technique10 RGB{
+	pass P1 <float scale=1.0;string format="R8G8B8A8_UNorm";>
+	{
+		SetPixelShader(CompileShader(ps_4_0,pRToRGBA()));
+	}
+}

@@ -1,0 +1,36 @@
+float2 R:TARGETSIZE;
+Texture2D tex0 : PREVIOUS;
+
+cbuffer controls:register(b0){
+	int FrameIndex = 0;
+};
+
+int toGraycode(int binary) {
+	return binary ^ (binary >> 1);
+}
+
+float pEncode(float4 PosWVP:SV_POSITION,float2 texcoord:TEXCOORD0):SV_TARGET{
+	int x = (R * texcoord).x;
+	int y = (R * texcoord).y;
+	
+	int FrameCountX = ceil(log2(R.x) );
+	
+	int value;
+	int bit;
+	if (FrameIndex < FrameCountX) {
+		value = toGraycode(x);	
+		bit = (value >> FrameIndex) & 1;
+	} else {
+		value = toGraycode(y);	
+		bit = (value >> (FrameIndex - FrameCountX)) & 1;
+	}
+	
+    return bit;
+}
+
+technique10 Encode{
+	pass P1 <float scale=1.0;string format="R8_UNorm";>
+	{SetPixelShader(CompileShader(ps_4_0,pEncode()));}
+}
+
+
