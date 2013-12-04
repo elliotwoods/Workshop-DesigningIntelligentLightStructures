@@ -1,19 +1,23 @@
 # Designing Intelligent Light Structures
 
-__Nantes__
-__4,5th December 2013__
+* __Nantes__
+* __4,5th December 2013__
 
 https://github.com/elliotwoods/Workshop-DesigningIntelligentLightStructures/
 
 ## Principles
 
-### Stages
+### Steps
 
 0. Calibration
 1. Scan
 2. Decode
 3. Triangulate
 4. Animate
+
+If you make changes to the model then you will need to perform steps 3 and 4 again (and often also 5).
+
+If you move the camera or the projector, or make any focus or zoom changes.
 
 ## Setting up VVVV
 
@@ -57,6 +61,7 @@ Find 'Intrinsics' (shape of the view of projector and camera)
 8. Set the aperture to 22.
 9. Set the ISO to 400
 10. Take a test photo (fully press the shutter, make sure you can see light where the projection is and dark where it isn't). If it's too dark, then turn up the ISO (and too bright, turn down the ISO)
+11. Set the camera to shoot to `L` JPEG format (not RAW, not JPEG + RAW).
 
 #### Run scan software
 
