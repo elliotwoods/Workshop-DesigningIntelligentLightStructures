@@ -118,7 +118,10 @@ void ofApp::gotMessage(ofMessage msg){
 //--------------------------------------------------------------
 void ofApp::dragEvent(ofDragInfo dragInfo){ 
 	this->decoder.reset();
-	for(auto entry : dragInfo.files) {
+	auto & files = dragInfo.files;
+	sort(files.begin(), files.end());
+
+	for(auto entry : files) {
 		auto file = ofFile(entry, ofFile::Mode::Reference);
 		if (!(ofToUpper(file.getExtension()) == "JPG")) {
 			continue;
