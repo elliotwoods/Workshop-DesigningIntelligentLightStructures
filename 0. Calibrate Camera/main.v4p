@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
-   <PATCH nodename="C:\openFrameworks\apps\Workshop-DesigningIntelligentLightStructures\0. Calibrate\main.v4p" systemname="main" filename="C:\openFrameworks\apps\Workshop-DesigningIntelligentLightStructures\0. Calibrate\main.v4p">
+   <PATCH nodename="C:\openFrameworks\apps\Workshop-DesigningIntelligentLightStructures\0. Calibrate Camera\main.v4p" systemname="main" filename="C:\openFrameworks\apps\Workshop-DesigningIntelligentLightStructures\0. Calibrate\main.v4p">
    <BOUNDS type="Window" left="7875" top="2145" width="19530" height="12660">
    </BOUNDS>
    <NODE systemname="Shoot (EDSDK)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.EDSDK.dll" nodename="Shoot (EDSDK)" componentmode="Hidden" id="16">
@@ -773,11 +773,11 @@
    <LINK srcnodeid="43" srcpinname="Intrinsics" dstnodeid="50" dstpinname="Intrinsics">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="52" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="13500" top="12135" width="795" height="240">
+   <BOUNDS type="Box" left="13500" top="12135" width="2055" height="240">
    </BOUNDS>
    <BOUNDS type="Node" left="13500" top="12135" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="1" values="..\camera.intrinsics">
+   <PIN pinname="Input String" slicecount="1" values="..\Calibration\camera.intrinsics">
    </PIN>
    <PIN pinname="Default" slicecount="1" values="||">
    </PIN>

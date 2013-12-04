@@ -249,7 +249,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="4095" top="5760" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="1" values="..\camera.intrinsics">
+   <PIN pinname="Input String" slicecount="1" values="..\Calibration\camera.intrinsics">
    </PIN>
    <PIN pinname="Default" slicecount="1" values="||">
    </PIN>
@@ -466,14 +466,6 @@
    <LINKPOINT x="5610" y="9450">
    </LINKPOINT>
    </LINK>
-   <NODE systemname="IOBox (Value Advanced)" nodename="IOBox (Value Advanced)" componentmode="InABox" id="37">
-   <BOUNDS type="Node" left="1035" top="1590" width="100" height="100">
-   </BOUNDS>
-   <BOUNDS type="Box" left="1035" top="1590" width="795" height="240">
-   </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" values="0.18">
-   </PIN>
-   </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="38" systemname="IOBox (String)">
    <BOUNDS type="Box" left="4935" top="7065" width="4230" height="240">
    </BOUNDS>
