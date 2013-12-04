@@ -2,24 +2,24 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-	this->bangSetProperties = false;
 	this->setProperties();
 
 	gui.init();
-	gui.addInstructions();
+	auto instructions = gui.addInstructions();
 	gui.add(this->decoder.getCameraInProjector(), "Camera in Projector");
 	gui.add(this->decoder.getProjectorInCamera(), "Projector in Camera");
-	auto controlPanel = gui.addBlank("Controls");
-	controlPanel->setWidgets(this->widgets);
+	
+	instructions->onDraw += [this] (ofxCvGui::DrawArguments& args) {
+		ofxCvGui::AssetRegister.drawText(this->statusText, 20, 300);
+	};
+
+	this->buildStatus();
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-	if (this->bangSetProperties) {
-		this->setProperties();
-		this->bangSetProperties = false;
-	}
 	decoder.update();
+	this->buildStatus();
 }
 
 //--------------------------------------------------------------
@@ -44,16 +44,40 @@ void ofApp::setProperties() {
 }
 
 //--------------------------------------------------------------
-void ofApp::buildWidgets() {
-	this->widgets.removeWidgets();
-	this->widgets.addButton("Set properties", this->bangSetProperties);
-	this->widgets.addLabel("Projector width", ofToString(this->payload.getWidth()));
-	this->widgets.addLabel("Projector height", ofToString(this->payload.getHeight()));
+void ofApp::buildStatus() {
+	stringstream status;
+	status << "Projector Width (px):  " << this->payload.getWidth() << endl;
+	status << "Projector Height (px):  " << this->payload.getHeight() << endl;
+	status << "Thresold:              " << (int) this->decoder.getThreshold() << endl;
+	this->statusText = status.str();
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-
+	switch(key) {
+	case 'p':
+		this->setProperties();
+		break;
+	case OF_KEY_UP:
+		{
+		int threshold = this->decoder.getThreshold();
+		threshold++;
+		threshold = ofClamp(threshold, 0, 255);
+		this->decoder.setThreshold(threshold);
+		break;
+		}
+	case OF_KEY_DOWN:
+		{
+		int threshold = this->decoder.getThreshold();
+		threshold--;
+		threshold = ofClamp(threshold, 0, 255);
+		this->decoder.setThreshold(threshold);
+		break;
+		}
+	case 's':
+		this->decoder.saveDataSet();
+		break;
+	}
 }
 
 //--------------------------------------------------------------

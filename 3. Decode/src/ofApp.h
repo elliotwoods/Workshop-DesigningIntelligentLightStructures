@@ -12,7 +12,7 @@ class ofApp : public ofBaseApp{
 		void draw();
 
 		void setProperties();
-		void buildWidgets();
+		void buildStatus();
 
 		void keyPressed(int key);
 		void keyReleased(int key);
@@ -29,8 +29,7 @@ class ofApp : public ofBaseApp{
 
 		bool showProjector;
 		ofxCvGui::Builder gui;
-		ofxUICanvas widgets;
 
 		//widget controls;
-		bool bangSetProperties;
+		string statusText;
 };
