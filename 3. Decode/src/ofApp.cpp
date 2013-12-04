@@ -2,6 +2,33 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+	this->bangSetProperties = false;
+	this->setProperties();
+
+	gui.init();
+	gui.addInstructions();
+	gui.add(this->decoder.getCameraInProjector(), "Camera in Projector");
+	gui.add(this->decoder.getProjectorInCamera(), "Projector in Camera");
+	auto controlPanel = gui.addBlank("Controls");
+	controlPanel->setWidgets(this->widgets);
+}
+
+//--------------------------------------------------------------
+void ofApp::update(){
+	if (this->bangSetProperties) {
+		this->setProperties();
+		this->bangSetProperties = false;
+	}
+	decoder.update();
+}
+
+//--------------------------------------------------------------
+void ofApp::draw(){
+
+}
+
+//--------------------------------------------------------------
+void ofApp::setProperties() {
 	auto result = ofSystemTextBoxDialog("Projector Width (px)");
 	int width = ofToInt(result);
 	result = ofSystemTextBoxDialog("Projector Height (px)");
@@ -14,59 +41,19 @@ void ofApp::setup(){
 
 	this->payload.init(width, height);
 	this->decoder.init(this->payload);
-
-	auto folderResult = ofSystemLoadDialog("Select folder containing graycode captures", true);
-	if (!folderResult.bSuccess) {
-		ofSystemAlertDialog("Invalid folder selection (somehow :) )");
-		ofExit();
-	}
-
-	ofDirectory folderList;
-	folderList.listDir(folderResult.filePath);
-
-	auto files = folderList.getFiles();
-	for(auto file : files) {
-		if (!(ofToUpper(file.getExtension()) == "JPG")) {
-			continue;
-		}
-		ofImage loader;
-		loader.loadImage(file);
-		cout << "Decoding image " << file.getFileName() << endl;
-		decoder << loader;
-	}
-
-	if (decoder.hasData()) {
-		decoder.saveDataSet();
-	}
-
-	this->showProjector = false;
-	this->keyPressed(' ');
 }
 
 //--------------------------------------------------------------
-void ofApp::update(){
-	decoder.update();
-}
-
-//--------------------------------------------------------------
-void ofApp::draw(){
-	if (showProjector) {
-		decoder.getCameraInProjector().draw(0,0);
-	} else {
-		decoder.getProjectorInCamera().draw(0,0);
-	}
+void ofApp::buildWidgets() {
+	this->widgets.removeWidgets();
+	this->widgets.addButton("Set properties", this->bangSetProperties);
+	this->widgets.addLabel("Projector width", ofToString(this->payload.getWidth()));
+	this->widgets.addLabel("Projector height", ofToString(this->payload.getHeight()));
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-	if (key == ' ') {
-		showProjector ^= true;
-		if(showProjector) {
-			ofSetWindowShape(this->payload.getWidth(), this->payload.getHeight());
-		} else {
-			ofSetWindowShape(this->decoder.getWidth(), this->decoder.getHeight());
-		}
-	}
+
 }
 
 //--------------------------------------------------------------
@@ -106,5 +93,18 @@ void ofApp::gotMessage(ofMessage msg){
 
 //--------------------------------------------------------------
 void ofApp::dragEvent(ofDragInfo dragInfo){ 
-
+	this->decoder.reset();
+	for(auto entry : dragInfo.files) {
+		auto file = ofFile(entry, ofFile::Mode::Reference);
+		if (!(ofToUpper(file.getExtension()) == "JPG")) {
+			continue;
+		}
+		ofImage loader;
+		loader.loadImage(file);
+		cout << "Decoding image " << file.getFileName() << endl;
+		decoder << loader;
+	}
+	if (!this->decoder.hasData()) {
+		ofSystemAlertDialog("We didn't get enough frames for a full dataset. Check that you have " + ofToString(this->payload.getFrameCount()) + " images in your captures set.");
+	}
 }

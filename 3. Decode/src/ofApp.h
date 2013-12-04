@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "ofxGraycode.h"
+#include "ofxCvGui.h"
 
 class ofApp : public ofBaseApp{
 
@@ -9,6 +10,9 @@ class ofApp : public ofBaseApp{
 		void setup();
 		void update();
 		void draw();
+
+		void setProperties();
+		void buildWidgets();
 
 		void keyPressed(int key);
 		void keyReleased(int key);
@@ -24,4 +28,9 @@ class ofApp : public ofBaseApp{
 		ofxGraycode::Decoder decoder;
 
 		bool showProjector;
+		ofxCvGui::Builder gui;
+		ofxUICanvas widgets;
+
+		//widget controls;
+		bool bangSetProperties;
 };
