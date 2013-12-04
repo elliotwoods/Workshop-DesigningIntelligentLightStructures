@@ -2,7 +2,15 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-
+	gui.init();
+	auto scenePanel = gui.add(this->scene, "Scene");
+	scenePanel->onDraw += [] (ofxCvGui::DrawArguments&) {
+		ofBackgroundGradient(40, 0);
+	};
+	scenePanel->onDraw3d += [this] (ofNode&) {
+		this->pointCloud.drawVertices();
+	};
+	scenePanel->setGridEnabled(true);
 }
 
 //--------------------------------------------------------------
