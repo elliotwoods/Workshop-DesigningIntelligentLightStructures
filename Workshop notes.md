@@ -1,6 +1,9 @@
 # Designing Intelligent Light Structures
 
-__Notes__
+__Nantes__
+__4,5th December 2013__
+
+https://github.com/elliotwoods/Workshop-DesigningIntelligentLightStructures/
 
 ## Principles
 
