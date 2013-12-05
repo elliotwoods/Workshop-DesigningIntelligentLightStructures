@@ -20,6 +20,9 @@ void ofApp::setup(){
 		}
 	};
 	nodePanel->setGridEnabled(true);
+	nodePanel->setCursorEnabled(true);
+
+	gui.add(this->worldImage, "World XYZ");
 }
 
 //--------------------------------------------------------------
@@ -39,11 +42,7 @@ void ofApp::calc() {
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-	if (key == 'c') {
-		bool enabled = false;
-		enabled = !enabled;
-		this->nodePanel->setCursorEnabled(enabled);
-	}
+
 }
 
 //--------------------------------------------------------------
@@ -170,7 +169,7 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
 			this->projector.setWidth(projectorWidth);
 			this->projector.setHeight(projectorHeight);
 
-			cout << "Triangulating with Camera [" << this->camera.getWidth() << "," << this->camera.getHeight() << "], Projetor [" << this->projector.getWidth() << "," << this->projector.getHeight() << "]" << endl;
+			cout << "Triangulating mesh with Camera [" << this->camera.getWidth() << "," << this->camera.getHeight() << "], Projetor [" << this->projector.getWidth() << "," << this->projector.getHeight() << "]" << endl;
 			
 			ofxTriangulate::Triangulate(decoder.getDataSet(), this->camera, this->projector, this->pointCloud, 0.4f); 
 			imageCamera = decoder.getDataSet().getMedian();
@@ -178,26 +177,39 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
 			imageCamera.update();
 			imageProjector.update();
 
-			ofFloatImage world;
-			world.allocate(projector.getWidth(), projector.getHeight(), OF_IMAGE_COLOR);
+			cout << "Triangulating image" << endl;
+
+			this->worldImage.allocate(projector.getWidth(), projector.getHeight(), OF_IMAGE_COLOR);
 			int pixelCount = projector.getWidth() * projector.getHeight();
-			ofVec3f * xyz = (ofVec3f*) world.getPixels();
+			ofVec3f * xyz = (ofVec3f*) this->worldImage.getPixels();
 			for(int i=0; i<pixelCount; i++) {
-				*xyz++ = ofVec3f(0.0f, 0.0f, 0.0f);
+				xyz[i] = ofVec3f(0.0f, 0.0f, 0.0f);
 			}
 
-			xyz = (ofVec3f*) world.getPixels();
+			xyz = (ofVec3f*) this->worldImage.getPixels();
 			for(const auto pixel : decoder.getDataSet()) {
 				ofVec3f newPoint;
+				if (!pixel.active) {
+					continue;
+				}
 				bool success = ofxTriangulate::Triangulate(pixel.camera, pixel.projector, this->camera, this->projector, newPoint, 0.4f);		
-				if (success) {
-					xyz[pixel.projector] = newPoint;
+				if (success) { 
+					if (pixel.projector < pixelCount) {
+						xyz[pixel.projector] = newPoint;
+					}
+
+					static int progress = 0;
+					if (progress++ % 100 == 0) {
+
+					}
 				}
 			}
+			this->worldImage.update();
 
-			auto saveDialog = ofSystemSaveDialog("output.exr", "Save World map");
+			auto saveDialog = ofSystemSaveDialog("output.raw", "Save World map");
 			if (saveDialog.bSuccess) {
-				world.saveImage(saveDialog.fileName);
+				cout << "Saving world map to " << saveDialog.filePath;
+				ofSaveImage(worldImage.getPixelsRef(), saveDialog.filePath);
 			}
 		}
 	}

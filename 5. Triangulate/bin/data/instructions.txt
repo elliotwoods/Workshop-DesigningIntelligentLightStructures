@@ -9,3 +9,7 @@ First drag matrices into here:
 
 Then drag a dataset into here
 (it must have the extension .sl).
+
+At this time, the app will ask for
+the projector width and height
+(look out for the dialog box!)

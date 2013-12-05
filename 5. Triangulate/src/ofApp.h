@@ -32,5 +32,7 @@ class ofApp : public ofBaseApp{
 
 		ofImage imageCamera;
 		ofImage imageProjector;
+		ofFloatImage worldImage;
+
 		ofPtr<ofxCvGui::Panels::Node> nodePanel;
 };
