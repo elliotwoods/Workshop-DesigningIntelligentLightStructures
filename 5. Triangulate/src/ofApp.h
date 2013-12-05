@@ -12,6 +12,8 @@ class ofApp : public ofBaseApp{
 		void update();
 		void draw();
 
+		void calc();
+
 		void keyPressed(int key);
 		void keyReleased(int key);
 		void mouseMoved(int x, int y );
@@ -23,6 +25,12 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 		
 		ofxCvGui::Builder gui;
-		ofNode scene;
 		ofMesh pointCloud;
+		ofNode node;
+		ofxRay::Camera camera;
+		ofxRay::Projector projector;
+
+		ofImage imageCamera;
+		ofImage imageProjector;
+		ofPtr<ofxCvGui::Panels::Node> nodePanel;
 };

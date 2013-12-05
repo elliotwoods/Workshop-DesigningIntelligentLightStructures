@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
-   <PATCH nodename="C:\openFrameworks\apps\Workshop-DesigningIntelligentLightStructures\2. Scan\main.v4p" systemname="main" filename="C:\openFrameworks\apps\Workshop-DesigningIntelligentLightStructures\1. Scan\main.v4p">
+   <PATCH nodename="C:\openFrameworks\apps\Workshop-DesigningIntelligentLightStructures\3. Scan\main.v4p" systemname="main" filename="C:\openFrameworks\apps\Workshop-DesigningIntelligentLightStructures\1. Scan\main.v4p">
    <BOUNDS type="Window" left="1485" top="2310" width="19530" height="11640">
    </BOUNDS>
    <NODE systemname="Renderer (DX11)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Renderer (DX11)" componentmode="FullScreen" id="1">
@@ -417,6 +417,8 @@
    </PIN>
    <PIN pinname="Delay ms" slicecount="1" values="500">
    </PIN>
+   <PIN pinname="Post Capture Delay">
+   </PIN>
    </NODE>
    <NODE systemname="Payload (CV.StructuredLight)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Payload (CV.StructuredLight)" componentmode="Hidden" id="30">
    <BOUNDS type="Node" left="2790" top="10830" width="1605" height="270">
@@ -602,24 +604,6 @@
    </NODE>
    <LINK srcnodeid="40" srcpinname="Y Output Value" dstnodeid="29" dstpinname="Pre Capture Delay">
    </LINK>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="41" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="5895" top="11580" width="795" height="240">
-   </BOUNDS>
-   <BOUNDS type="Node" left="5895" top="11580" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" values="1000">
-   </PIN>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Value Type" slicecount="1" values="Integer">
-   </PIN>
-   <PIN pinname="Descriptive Name" slicecount="1" values="|Post Capture Delay|">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="41" srcpinname="Y Output Value" dstnodeid="29" dstpinname="Post Capture Delay">
-   </LINK>
    <NODE systemname="FlipFlop (Animation)" nodename="FlipFlop (Animation)" componentmode="Hidden" id="3">
    <BOUNDS type="Node" left="2610" top="4485" width="100" height="100">
    </BOUNDS>
@@ -633,5 +617,23 @@
    <LINK srcnodeid="3" srcpinname="Output" dstnodeid="1" dstpinname="Fullscreen">
    </LINK>
    <LINK srcnodeid="2" srcpinname="Y Output Value" dstnodeid="3" dstpinname="Set">
+   </LINK>
+   <NODE id="41" nodename="IOBox (Value Advanced)" componentmode="InABox" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="5895" top="11580" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="5895" top="11580" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" values="1500">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Integer">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|Post Capture Delay|">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="41" srcpinname="Y Output Value" dstnodeid="29" dstpinname="Post Capture Delay">
    </LINK>
    </PATCH>

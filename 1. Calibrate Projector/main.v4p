@@ -1,13 +1,13 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
    <PATCH nodename="C:\openFrameworks\apps\Workshop-DesigningIntelligentLightStructures\1. Calibrate Projector\main.v4p" systemname="main" filename="C:\openFrameworks\apps\Workshop-DesigningIntelligentLightStructures\1. Calibrate Projector\main.v4p">
-   <BOUNDS type="Window" left="7485" top="1455" width="9570" height="13155">
+   <BOUNDS type="Window" left="6180" top="0" width="9570" height="12180">
    </BOUNDS>
    <NODE systemname="Renderer (EX9)" nodename="Renderer (EX9)" componentmode="InAWindow" id="1">
    <BOUNDS type="Node" left="2880" top="1710" width="4065" height="270">
    </BOUNDS>
    <BOUNDS type="Box" left="2880" top="1710" width="2400" height="1800">
    </BOUNDS>
-   <BOUNDS type="Window" left="19665" top="5790" width="6240" height="5010">
+   <BOUNDS type="Window" left="37155" top="3510" width="6240" height="5010">
    </BOUNDS>
    <PIN pinname="X" visible="1">
    </PIN>
@@ -27,9 +27,11 @@
    </PIN>
    <PIN pinname="Input XY" visible="1">
    </PIN>
+   <BOUNDS type="Window" left="2355" top="4815" width="11760" height="6915">
+   </BOUNDS>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
    </NODE>
-   <LINK srcnodeid="3" srcpinname="Layers out" dstnodeid="1" dstpinname="Layers">
-   </LINK>
    <NODE systemname="Vector (2d Join)" nodename="Vector (2d Join)" componentmode="Hidden" id="4">
    <BOUNDS type="Node" left="2880" top="2190" width="100" height="100">
    </BOUNDS>
@@ -151,6 +153,8 @@
    </PIN>
    <BOUNDS type="Box" left="2580" top="6960">
    </BOUNDS>
+   <PIN pinname="Success" visible="1">
+   </PIN>
    </NODE>
    <LINK srcnodeid="9" srcpinname="Output" dstnodeid="12" dstpinname="Input">
    </LINK>
@@ -276,8 +280,6 @@
    </NODE>
    <LINK srcnodeid="18" srcpinname="Output String" dstnodeid="19" dstpinname="Input">
    </LINK>
-   <LINK srcnodeid="19" srcpinname="OnChange" dstnodeid="5" dstpinname="Read">
-   </LINK>
    <NODE systemname="GridView (DX9)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\GridView (DX9).v4p" nodename="GridView (DX9)" componentmode="Hidden" id="23">
    <BOUNDS type="Node" left="570" top="4470" width="100" height="100">
    </BOUNDS>
@@ -293,17 +295,15 @@
    </LINKPOINT>
    </LINK>
    <NODE systemname="Renderer (EX9)" nodename="Renderer (EX9)" componentmode="InAWindow" id="24" border="0">
-   <BOUNDS type="Node" left="555" top="4965" width="100" height="100">
+   <BOUNDS type="Node" left="555" top="5265" width="100" height="100">
    </BOUNDS>
-   <BOUNDS type="Box" left="555" top="4965" width="2400" height="1800">
+   <BOUNDS type="Box" left="555" top="5265" width="2400" height="1800">
    </BOUNDS>
    <BOUNDS type="Window" left="0" top="0" width="6240" height="5010">
    </BOUNDS>
    <PIN pinname="Layers" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="23" srcpinname="Layer" dstnodeid="24" dstpinname="Layers">
-   </LINK>
    <NODE systemname="Change (String)" nodename="Change (String)" componentmode="Hidden" id="25" hiddenwhenlocked="1">
    <BOUNDS type="Node" left="4725" top="4800" width="100" height="100">
    </BOUNDS>
@@ -313,12 +313,6 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="15" srcpinname="Output String" dstnodeid="25" dstpinname="Input" hiddenwhenlocked="1">
-   </LINK>
-   <LINK srcnodeid="25" srcpinname="OnChange" dstnodeid="6" dstpinname="Save On Computer" linkstyle="Bezier" hiddenwhenlocked="1">
-   <LINKPOINT x="4725" y="4470">
-   </LINKPOINT>
-   <LINKPOINT x="4155" y="4470">
-   </LINKPOINT>
    </LINK>
    <NODE systemname="Extrinsics (CV.Transform Split)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Extrinsics (CV.Transform Split)" componentmode="Hidden" id="26">
    <BOUNDS type="Node" left="1065" top="8115" width="100" height="100">
@@ -415,7 +409,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="5775" top="7785" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="1" values="..\ProjectorCalibrationPoints">
+   <PIN pinname="Input String" slicecount="1" values="..\Calibration\ProjectorCalibrationPoints.xml">
    </PIN>
    <PIN pinname="Default" slicecount="1" values="spreadtable.xml">
    </PIN>
@@ -455,7 +449,7 @@
    </PIN>
    <PIN pinname="Table" visible="1">
    </PIN>
-   <PIN pinname="Insert" slicecount="1" values="-1">
+   <PIN pinname="Insert" slicecount="1" visible="1" values="-1">
    </PIN>
    </NODE>
    <LINK srcnodeid="35" srcpinname="Output" dstnodeid="36" dstpinname="Input">
@@ -546,10 +540,6 @@
    <PIN pinname="Projection Transform" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="46" srcpinname="Output 1" dstnodeid="48" dstpinname="World XYZ">
-   </LINK>
-   <LINK srcnodeid="46" srcpinname="Output 2" dstnodeid="48" dstpinname="Projection XY">
-   </LINK>
    <LINK srcnodeid="45" srcpinname="Output" dstnodeid="46" dstpinname="Input">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="49" systemname="IOBox (Value Advanced)">
@@ -557,7 +547,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="4275" top="10605" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="2" values="1024,768">
+   <PIN pinname="Y Input Value" slicecount="2" values="1280,800">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -577,9 +567,9 @@
    </LINKPOINT>
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="50" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="6270" top="10605" width="480" height="480">
+   <BOUNDS type="Box" left="7530" top="1830" width="1500" height="1515">
    </BOUNDS>
-   <BOUNDS type="Node" left="6270" top="10605" width="0" height="0">
+   <BOUNDS type="Node" left="7530" top="1830" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" values="0">
    </PIN>
@@ -595,8 +585,14 @@
    </PIN>
    <PIN pinname="Y Output Value" visible="1">
    </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="0">
+   </PIN>
    </NODE>
-   <LINK srcnodeid="50" srcpinname="Y Output Value" dstnodeid="48" dstpinname="Solve">
+   <LINK srcnodeid="50" srcpinname="Y Output Value" dstnodeid="48" dstpinname="Solve" linkstyle="Bezier">
+   <LINKPOINT x="7545" y="7605">
+   </LINKPOINT>
+   <LINKPOINT x="6300" y="7605">
+   </LINKPOINT>
    </LINK>
    <NODE systemname="Perspective (CV.Transform)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\Perspective (CV.Transform).v4p" nodename="Perspective (CV.Transform)" componentmode="Hidden" id="52">
    <BOUNDS type="Node" left="570" top="11865" width="100" height="100">
@@ -691,7 +687,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="3435" top="14880" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="1" values="..\Calibration\projector-view.mat">
+   <PIN pinname="Input String" slicecount="1" values="..\Calibration\projector-projection.mat">
    </PIN>
    <PIN pinname="Default" slicecount="1" values="file.txt">
    </PIN>
@@ -703,8 +699,6 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="59" srcpinname="Output String" dstnodeid="60" dstpinname="Filename">
-   </LINK>
-   <LINK srcnodeid="48" srcpinname="Projection Transform" dstnodeid="60" dstpinname="Transform">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="61" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="4170" top="12735" width="795" height="240">
@@ -769,9 +763,9 @@
    <LINK srcnodeid="62" srcpinname="Y Output Value" dstnodeid="64" dstpinname="Input 2">
    </LINK>
    <LINK srcnodeid="50" srcpinname="Y Output Value" dstnodeid="64" dstpinname="Input 1" linkstyle="Bezier">
-   <LINKPOINT x="6255" y="12140">
+   <LINKPOINT x="7545" y="8303">
    </LINKPOINT>
-   <LINKPOINT x="4860" y="12190">
+   <LINKPOINT x="4830" y="8303">
    </LINKPOINT>
    </LINK>
    <LINK srcnodeid="64" srcpinname="Output" dstnodeid="55" dstpinname="Write" linkstyle="Bezier">
@@ -791,5 +785,331 @@
    </LINKPOINT>
    <LINKPOINT x="3795" y="14443">
    </LINKPOINT>
+   </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="65" systemname="IOBox (String)">
+   <BOUNDS type="Box" left="3675" top="4365" width="450" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="3675" top="4365" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Default" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="6" srcpinname="Status" dstnodeid="65" dstpinname="Input String">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="67" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="1065" top="6240" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="1065" top="6240" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" values="0.03">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|Board Pitch|">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="67" srcpinname="Y Output Value" dstnodeid="16" dstpinname="Board Pitch">
+   </LINK>
+   <LINK srcnodeid="12" srcpinname="Success" dstnodeid="36" dstpinname="Insert">
+   </LINK>
+   <NODE systemname="BoardCorners (DX9)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\BoardCorners (DX9).v4p" nodename="BoardCorners (DX9)" componentmode="Hidden" id="69" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="7725" top="6135" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   <PIN pinname="Image PointsXY" visible="1">
+   </PIN>
+   <PIN pinname="BinSize" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="ResolutionXY" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Group (EX9)" nodename="Group (EX9)" componentmode="Hidden" id="70">
+   <BOUNDS type="Node" left="555" top="4860" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Layer 1" visible="1">
+   </PIN>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   <PIN pinname="Layer 2" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="23" srcpinname="Layer" dstnodeid="70" dstpinname="Layer 1">
+   </LINK>
+   <LINK srcnodeid="70" srcpinname="Layer" dstnodeid="24" dstpinname="Layers">
+   </LINK>
+   <LINK srcnodeid="69" srcpinname="Layer" dstnodeid="70" dstpinname="Layer 2" hiddenwhenlocked="1">
+   </LINK>
+   <LINK srcnodeid="12" srcpinname="PositionXY" dstnodeid="69" dstpinname="Image PointsXY" hiddenwhenlocked="1">
+   </LINK>
+   <NODE systemname="Info (CV.Image)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Info (CV.Image)" componentmode="Hidden" id="71" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="8010" top="5295" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Image" visible="1">
+   </PIN>
+   <PIN pinname="Width" visible="1">
+   </PIN>
+   <PIN pinname="Height" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="9" srcpinname="Output" dstnodeid="71" dstpinname="Image" hiddenwhenlocked="1">
+   </LINK>
+   <NODE systemname="Vector (2d Join)" nodename="Vector (2d Join)" componentmode="Hidden" id="72" hiddenwhenlocked="1">
+   <BOUNDS type="Node" left="8205" top="5700" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="X" visible="1">
+   </PIN>
+   <PIN pinname="Y" visible="1">
+   </PIN>
+   <PIN pinname="XY" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="71" srcpinname="Width" dstnodeid="72" dstpinname="X" hiddenwhenlocked="1">
+   </LINK>
+   <LINK srcnodeid="71" srcpinname="Height" dstnodeid="72" dstpinname="Y" hiddenwhenlocked="1">
+   </LINK>
+   <LINK srcnodeid="72" srcpinname="XY" dstnodeid="69" dstpinname="ResolutionXY" hiddenwhenlocked="1">
+   </LINK>
+   <NODE systemname="CameraPreview (Transform DX9)" filename="%VVVV%\addonpack\lib\nodes\modules\Transform\CameraPreview (Transform DX9).v4p" nodename="CameraPreview (Transform DX9)" componentmode="Hidden" id="73">
+   <BOUNDS type="Node" left="2100" top="16530" width="3135" height="270">
+   </BOUNDS>
+   <PIN pinname="View" visible="1">
+   </PIN>
+   <PIN pinname="Projection" visible="1">
+   </PIN>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="48" srcpinname="View Transform" dstnodeid="73" dstpinname="View">
+   </LINK>
+   <NODE systemname="CameraPreview (Transform DX9)" filename="%VVVV%\addonpack\lib\nodes\modules\Transform\CameraPreview (Transform DX9).v4p" nodename="CameraPreview (Transform DX9)" componentmode="Hidden" id="74">
+   <BOUNDS type="Node" left="945" top="15915" width="3135" height="270">
+   </BOUNDS>
+   <PIN pinname="View" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Projection" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="52" srcpinname="Output" dstnodeid="74" dstpinname="Projection">
+   </LINK>
+   <NODE systemname="Group (EX9)" nodename="Group (EX9)" componentmode="Hidden" id="75">
+   <BOUNDS type="Node" left="930" top="18255" width="4635" height="270">
+   </BOUNDS>
+   <PIN pinname="Layer 1" visible="1">
+   </PIN>
+   <PIN pinname="Layer 2" visible="1">
+   </PIN>
+   <PIN pinname="Layer Template Count" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Layer 3" visible="1">
+   </PIN>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   <PIN pinname="Layer 4" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="74" srcpinname="Layer" dstnodeid="75" dstpinname="Layer 1">
+   </LINK>
+   <LINK srcnodeid="73" srcpinname="Layer" dstnodeid="75" dstpinname="Layer 2">
+   </LINK>
+   <NODE systemname="Renderer (EX9)" nodename="Renderer (EX9)" componentmode="InAWindow" id="78">
+   <BOUNDS type="Node" left="930" top="19050" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="930" top="19050" width="2400" height="1800">
+   </BOUNDS>
+   <BOUNDS type="Window" left="12285" top="4230" width="6255" height="5010">
+   </BOUNDS>
+   <PIN pinname="Layers" visible="1">
+   </PIN>
+   <PIN pinname="View" visible="1">
+   </PIN>
+   <PIN pinname="Projection" visible="1">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="World">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="75" srcpinname="Layer" dstnodeid="78" dstpinname="Layers">
+   </LINK>
+   <NODE systemname="Camera (Transform Softimage)" filename="%VVVV%\lib\nodes\modules\Transform\Camera (Transform Softimage).v4p" nodename="Camera (Transform Softimage)" componentmode="Hidden" id="79">
+   <BOUNDS type="Node" left="1875" top="18720" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="View" visible="1">
+   </PIN>
+   <PIN pinname="Projection" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="79" srcpinname="View" dstnodeid="78" dstpinname="View">
+   </LINK>
+   <LINK srcnodeid="79" srcpinname="Projection" dstnodeid="78" dstpinname="Projection">
+   </LINK>
+   <NODE systemname="AxisAndGrid (DX9)" filename="%VVVV%\lib\nodes\modules\EX9\AxisAndGrid (DX9).v4p" nodename="AxisAndGrid (DX9)" componentmode="Hidden" id="80">
+   <BOUNDS type="Node" left="4365" top="17895" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="80" srcpinname="Layer" dstnodeid="75" dstpinname="Layer 4">
+   </LINK>
+   <NODE systemname="PhongPoint (EX9.Effect)" filename="%VVVV%\lib\nodes\effects\PhongPoint.fx" nodename="PhongPoint (EX9.Effect)" componentmode="Hidden" id="81">
+   <BOUNDS type="Node" left="3240" top="17490" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Transform" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   <PIN pinname="Mesh" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="81" srcpinname="Layer" dstnodeid="75" dstpinname="Layer 3">
+   </LINK>
+   <NODE systemname="Sphere (EX9.Geometry)" nodename="Sphere (EX9.Geometry)" componentmode="Hidden" id="82">
+   <BOUNDS type="Node" left="2685" top="16980" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Mesh" visible="1">
+   </PIN>
+   <PIN pinname="Radius" slicecount="1" values="0.05">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="82" srcpinname="Mesh" dstnodeid="81" dstpinname="Mesh" linkstyle="VHV">
+   <LINKPOINT x="2745" y="17355">
+   </LINKPOINT>
+   <LINKPOINT x="3390" y="17355">
+   </LINKPOINT>
+   </LINK>
+   <NODE systemname="Translate (Transform Vector)" nodename="Translate (Transform Vector)" componentmode="Hidden" id="77">
+   <BOUNDS type="Node" left="3570" top="17010" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Transform Out" visible="1">
+   </PIN>
+   <PIN pinname="XYZ" visible="1" slicecount="3" values="0,0,0">
+   </PIN>
+   <PIN pinname="Translate XYZ" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="77" srcpinname="Transform Out" dstnodeid="81" dstpinname="Transform">
+   </LINK>
+   <LINK srcnodeid="46" srcpinname="Output 1" dstnodeid="77" dstpinname="XYZ" linkstyle="Bezier" hiddenwhenlocked="1">
+   <LINKPOINT x="2145" y="14325">
+   </LINKPOINT>
+   <LINKPOINT x="4260" y="14325">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="19" srcpinname="OnChange" dstnodeid="5" dstpinname="Read">
+   </LINK>
+   <LINK srcnodeid="46" srcpinname="Output 2" dstnodeid="48" dstpinname="Projection XY">
+   </LINK>
+   <LINK srcnodeid="46" srcpinname="Output 1" dstnodeid="48" dstpinname="World XYZ">
+   </LINK>
+   <NODE systemname="Multiply (Transform)" nodename="Multiply (Transform)" componentmode="Hidden" id="83">
+   <BOUNDS type="Node" left="7305" top="14145" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Transform In 2" visible="1">
+   </PIN>
+   <PIN pinname="Transform Out" visible="1">
+   </PIN>
+   <PIN pinname="Transform In 1" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Transform In Count" slicecount="1" values="3">
+   </PIN>
+   <PIN pinname="Transform In 3" visible="1" slicecount="1" values="||">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="48" srcpinname="Projection Transform" dstnodeid="83" dstpinname="Transform In 2">
+   </LINK>
+   <NODE systemname="Scale (Transform)" nodename="Scale (Transform)" componentmode="Hidden" id="84">
+   <BOUNDS type="Node" left="7305" top="13455" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Transform Out" visible="1">
+   </PIN>
+   <PIN pinname="Z" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="Y" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="X" slicecount="1" values="-1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="84" srcpinname="Transform Out" dstnodeid="83" dstpinname="Transform In 1">
+   </LINK>
+   <NODE systemname="Scale (Transform)" nodename="Scale (Transform)" componentmode="Hidden" id="88">
+   <BOUNDS type="Node" left="7605" top="13755" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Y" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="Transform Out" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="88" srcpinname="Transform Out" dstnodeid="83" dstpinname="Transform In 3">
+   </LINK>
+   <LINK srcnodeid="3" srcpinname="Layer" dstnodeid="1" dstpinname="Layers">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="89" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="7515" top="720" width="1500" height="870">
+   </BOUNDS>
+   <BOUNDS type="Node" left="7515" top="720" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Integer">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Count">
+   </PIN>
+   <PIN pinname="Size" slicecount="1" values="36">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="45" srcpinname="Count" dstnodeid="89" dstpinname="Y Input Value" linkstyle="Bezier" hiddenwhenlocked="1">
+   <LINKPOINT x="2865" y="5918">
+   </LINKPOINT>
+   <LINKPOINT x="7515" y="5918">
+   </LINKPOINT>
+   </LINK>
+   <NODE systemname="IOBox (Value Advanced)" nodename="IOBox (Value Advanced)" componentmode="InABox" id="90">
+   <BOUNDS type="Node" left="7530" top="3570" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="7530" top="3570" width="1500" height="1320">
+   </BOUNDS>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|Switch Transforms|">
+   </PIN>
+   <PIN pinname="Y Output Value" visible="1">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Y Input Value" slicecount="1" values="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Switch (Node Input)" nodename="Switch (Node Input)" componentmode="Hidden" id="91">
+   <BOUNDS type="Node" left="6810" top="14685" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input 2" visible="1">
+   </PIN>
+   <PIN pinname="Switch" visible="1">
+   </PIN>
+   <PIN pinname="Input 1" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="83" srcpinname="Transform Out" dstnodeid="91" dstpinname="Input 2">
+   </LINK>
+   <LINK srcnodeid="90" srcpinname="Y Output Value" dstnodeid="91" dstpinname="Switch">
+   </LINK>
+   <LINK srcnodeid="48" srcpinname="Projection Transform" dstnodeid="91" dstpinname="Input 1">
+   </LINK>
+   <LINK srcnodeid="91" srcpinname="Output" dstnodeid="60" dstpinname="Transform">
+   </LINK>
+   <LINK srcnodeid="91" srcpinname="Output" dstnodeid="73" dstpinname="Projection">
    </LINK>
    </PATCH>

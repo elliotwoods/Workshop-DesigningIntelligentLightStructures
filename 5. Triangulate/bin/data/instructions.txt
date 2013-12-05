@@ -1,10 +1,7 @@
-Decode Graycode
-===============
+Triangulate
+===========
 
-Drag a set of images onto this app to decode them.
+Drag matrices into here.
+Then drag a dataset into here.
 
-[p] = Set properties
 [s] = Save output
-
-[UP] = Increase threshold
-[DOWN] = Decrease threshold

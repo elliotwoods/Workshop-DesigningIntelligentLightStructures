@@ -8,7 +8,8 @@ void ofApp::setup(){
 	auto instructions = gui.addInstructions();
 	gui.add(this->decoder.getCameraInProjector(), "Camera in Projector");
 	gui.add(this->decoder.getProjectorInCamera(), "Projector in Camera");
-	
+	gui.add(this->decoder.getMedian(), "Median in Camera");
+
 	instructions->onDraw += [this] (ofxCvGui::DrawArguments& args) {
 		ofxCvGui::AssetRegister.drawText(this->statusText, 20, 300);
 	};
