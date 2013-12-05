@@ -1,7 +1,11 @@
 Triangulate
 ===========
 
-Drag matrices into here.
-Then drag a dataset into here.
+First drag matrices into here:
 
-[s] = Save output
+* camera-projection.mat
+* projector-view.mat
+* projector-projection.mat
+
+Then drag a dataset into here
+(it must have the extension .sl).

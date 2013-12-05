@@ -177,6 +177,28 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
 			imageProjector = decoder.getDataSet().getMedianInverse();
 			imageCamera.update();
 			imageProjector.update();
+
+			ofFloatImage world;
+			world.allocate(projector.getWidth(), projector.getHeight(), OF_IMAGE_COLOR);
+			int pixelCount = projector.getWidth() * projector.getHeight();
+			ofVec3f * xyz = (ofVec3f*) world.getPixels();
+			for(int i=0; i<pixelCount; i++) {
+				*xyz++ = ofVec3f(0.0f, 0.0f, 0.0f);
+			}
+
+			xyz = (ofVec3f*) world.getPixels();
+			for(const auto pixel : decoder.getDataSet()) {
+				ofVec3f newPoint;
+				bool success = ofxTriangulate::Triangulate(pixel.camera, pixel.projector, this->camera, this->projector, newPoint, 0.4f);		
+				if (success) {
+					xyz[pixel.projector] = newPoint;
+				}
+			}
+
+			auto saveDialog = ofSystemSaveDialog("output.exr", "Save World map");
+			if (saveDialog.bSuccess) {
+				world.saveImage(saveDialog.fileName);
+			}
 		}
 	}
 }
