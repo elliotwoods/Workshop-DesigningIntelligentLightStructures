@@ -1,0 +1,52 @@
+//@author: vux
+//@help: template for texture fx
+//@tags: texture
+//@credits: 
+
+Texture2D<float3> world : PREVIOUS;
+float2 R:TARGETSIZE;
+
+cbuffer controls:register(b0){
+	float4 Color <bool color=true;string uiname="Color";> = 1;
+	float4x4 InverseTransform;
+}
+
+struct psInput
+{
+	float4 p : SV_Position;
+	float2 uv : TEXCOORD0;
+};
+
+float3 ApplySkin(float x) {
+	float4 col = Color;
+	col.rgb *= Color.a;
+	
+	float value = x < 1.0f;
+	value *= x;
+	
+	return value;//col.rgb * value;
+}
+
+float3 PS_Sphere(psInput input) : SV_Target
+{
+	float2 uv = R * input.uv;
+	float4 PosO;
+	PosO.xyz = world[uv];
+	PosO.w = 1.0f;
+
+	float4 PosW = mul(PosO, InverseTransform);
+	PosW /= PosW.w;
+	
+	return ApplySkin(length(PosW.xyz) * 2.0f);
+}
+
+technique10 Sphere
+{
+	pass P0
+	{
+		SetPixelShader(CompileShader(ps_4_0,PS_Sphere()));
+	}
+}
+
+
+

@@ -1,0 +1,287 @@
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
+   <PATCH nodename="C:\openFrameworks\apps\Workshop-DesigningIntelligentLightStructures\6. View data\main.v4p" systemname="main" filename="C:\openFrameworks\apps\Workshop-DesigningIntelligentLightStructures\6. View data\main.v4p">
+   <BOUNDS type="Window" left="12450" top="0" width="12690" height="7770">
+   </BOUNDS>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="3" systemname="IOBox (String)">
+   <BOUNDS type="Box" left="5400" top="240" width="4035" height="585">
+   </BOUNDS>
+   <BOUNDS type="Node" left="5400" top="240" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input String" slicecount="1" values="..\Calibration\world.exr">
+   </PIN>
+   <PIN pinname="Default" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="|All Files (*.*)||*.*|">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="Filename">
+   </PIN>
+   <PIN pinname="Output String" visible="1">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|World Image Raw|">
+   </PIN>
+   </NODE>
+   <NODE systemname="FileImage (CV.Image FreeImage)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.FreeImage.dll" nodename="FileImage (CV.Image FreeImage)" componentmode="Hidden" id="9">
+   <BOUNDS type="Node" left="5400" top="1155" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Filename" visible="1">
+   </PIN>
+   <PIN pinname="Reload" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="3" srcpinname="Output String" dstnodeid="9" dstpinname="Filename">
+   </LINK>
+   <NODE systemname="Renderer (DX11)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Renderer (DX11)" componentmode="InAWindow" id="38">
+   <BOUNDS type="Node" left="3405" top="6435" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="3405" top="6435" width="6000" height="4500">
+   </BOUNDS>
+   <BOUNDS type="Window" left="0" top="5010" width="12510" height="10590">
+   </BOUNDS>
+   <PIN pinname="View" visible="1">
+   </PIN>
+   <PIN pinname="Projection" visible="1">
+   </PIN>
+   <PIN pinname="Layers" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Depth Buffer Mode" slicecount="1" values="Standard">
+   </PIN>
+   <PIN pinname="Depth Buffer Format" slicecount="1" values="D32_Float">
+   </PIN>
+   <PIN pinname="AA Samples per Pixel" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|World 3D View|">
+   </PIN>
+   </NODE>
+   <NODE systemname="Camera (Transform Softimage)" filename="%VVVV%\lib\nodes\modules\Transform\Camera (Transform Softimage).v4p" nodename="Camera (Transform Softimage)" componentmode="Hidden" id="39">
+   <BOUNDS type="Node" left="4665" top="5910" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="View" visible="1">
+   </PIN>
+   <PIN pinname="Projection" visible="1">
+   </PIN>
+   <PIN pinname="Initial Pitch" slicecount="1" values="-0.02">
+   </PIN>
+   <PIN pinname="Initial Yaw" slicecount="1" values="-0.57">
+   </PIN>
+   <PIN pinname="Initial Interest" slicecount="3" values="-0.35,-0.35,-0.35">
+   </PIN>
+   <PIN pinname="Inital Distance" slicecount="1" values="2">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="39" srcpinname="View" dstnodeid="38" dstpinname="View">
+   </LINK>
+   <LINK srcnodeid="39" srcpinname="Projection" dstnodeid="38" dstpinname="Projection">
+   </LINK>
+   <NODE systemname="PointCloud (Dx11.Texture2D World)" filename="..\modules\PointCloud (Dx11.Texture2D World).v4p" nodename="..\modules\PointCloud (Dx11.Texture2D World).v4p" componentmode="Hidden" id="45">
+   <BOUNDS type="Node" left="4395" top="2122" width="0" height="0">
+   </BOUNDS>
+   <BOUNDS type="Box" left="3555" top="0" width="12810" height="8050">
+   </BOUNDS>
+   <BOUNDS type="Window" left="1425" top="5010" width="12810" height="8055">
+   </BOUNDS>
+   <PIN pinname="World Texture" slicecount="1" visible="1" values="||">
+   </PIN>
+   <PIN pinname="Color Texture" visible="1">
+   </PIN>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Preview (DX11.Texture)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Preview (DX11.Texture)" componentmode="InAWindow" id="46">
+   <BOUNDS type="Node" left="5685" top="2115" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="5685" top="2115" width="6000" height="4500">
+   </BOUNDS>
+   <BOUNDS type="Window" left="0" top="0" width="6240" height="5010">
+   </BOUNDS>
+   <PIN pinname="Texture In" visible="1">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|World XYZ Image|">
+   </PIN>
+   </NODE>
+   <NODE systemname="AsTexture (CV.Image DX11.Texture2D)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="AsTexture (CV.Image DX11.Texture2D)" componentmode="Hidden" id="47">
+   <BOUNDS type="Node" left="5400" top="1665" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Image" visible="1">
+   </PIN>
+   <PIN pinname="Texture Out" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="9" srcpinname="Output" dstnodeid="47" dstpinname="Image">
+   </LINK>
+   <LINK srcnodeid="47" srcpinname="Texture Out" dstnodeid="46" dstpinname="Texture In" linkstyle="VHV">
+   <LINKPOINT x="5460" y="2010">
+   </LINKPOINT>
+   <LINKPOINT x="5670" y="2010">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="47" srcpinname="Texture Out" dstnodeid="45" dstpinname="World Texture">
+   </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="48" systemname="IOBox (String)">
+   <BOUNDS type="Box" left="900" top="240" width="4035" height="585">
+   </BOUNDS>
+   <BOUNDS type="Node" left="900" top="240" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input String" slicecount="1" values="C:\Users\kimchips\Desktop\dataset\data.sl-medianInverse.png">
+   </PIN>
+   <PIN pinname="Default" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="|All Files (*.*)||*.*|">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="Filename">
+   </PIN>
+   <PIN pinname="Output String" visible="1">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|Colour Image|">
+   </PIN>
+   </NODE>
+   <NODE systemname="FileTexture (DX11 2d)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="FileTexture (DX11 2d)" componentmode="Hidden" id="49">
+   <BOUNDS type="Node" left="900" top="1095" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Filename" visible="1">
+   </PIN>
+   <PIN pinname="Texture Out" visible="1">
+   </PIN>
+   <PIN pinname="Reload" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="48" srcpinname="Output String" dstnodeid="49" dstpinname="Filename">
+   </LINK>
+   <LINK srcnodeid="49" srcpinname="Texture Out" dstnodeid="45" dstpinname="Color Texture" linkstyle="VHV">
+   <LINKPOINT x="960" y="1725">
+   </LINKPOINT>
+   <LINKPOINT x="4890" y="1725">
+   </LINKPOINT>
+   </LINK>
+   <NODE systemname="Group (DX11.Layer)" nodename="Group (DX11.Layer)" componentmode="Hidden" id="50" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll">
+   <BOUNDS type="Node" left="4230" top="5250" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Layer Out" visible="1">
+   </PIN>
+   <PIN pinname="Layer 1" visible="1">
+   </PIN>
+   <PIN pinname="Layer 2" visible="1" slicecount="1" values="||">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="45" srcpinname="Layer" dstnodeid="50" dstpinname="Layer 1">
+   </LINK>
+   <NODE systemname="Grid (DX11.Layer)" filename="..\modules\Grid (DX11.Layer).v4p" nodename="..\modules\Grid (DX11.Layer).v4p" componentmode="Hidden" id="62">
+   <BOUNDS type="Node" left="4605" top="4755" width="0" height="0">
+   </BOUNDS>
+   <BOUNDS type="Box" left="2185" top="2215" width="4840" height="5080">
+   </BOUNDS>
+   <BOUNDS type="Window" left="6195" top="5940" width="7395" height="4920">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="62" srcpinname="Layer" dstnodeid="50" dstpinname="Layer 2">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="63" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="4605" top="4095" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="4605" top="4095" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="63" srcpinname="Y Output Value" dstnodeid="62" dstpinname="Enabled">
+   </LINK>
+   <NODE systemname="Preview (DX11.Texture)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Preview (DX11.Texture)" componentmode="InAWindow" id="65">
+   <BOUNDS type="Node" left="900" top="2040" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="900" top="2040" width="6000" height="4500">
+   </BOUNDS>
+   <BOUNDS type="Window" left="6240" top="0" width="6240" height="5010">
+   </BOUNDS>
+   <PIN pinname="Texture In" visible="1">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|Colour Image|">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="49" srcpinname="Texture Out" dstnodeid="65" dstpinname="Texture In">
+   </LINK>
+   <NODE systemname="Writer (DX11.Texture 2d)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Writer (DX11.Texture 2d)" componentmode="Hidden" id="66">
+   <BOUNDS type="Node" left="7590" top="3465" width="3690" height="270">
+   </BOUNDS>
+   <PIN pinname="Texture In" visible="1">
+   </PIN>
+   <PIN pinname="Format" slicecount="1" values="Dds">
+   </PIN>
+   <PIN pinname="Filename" slicecount="1" values="..\world">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="47" srcpinname="Texture Out" dstnodeid="66" dstpinname="Texture In" linkstyle="VHV">
+   <LINKPOINT x="5460" y="2460">
+   </LINKPOINT>
+   <LINKPOINT x="7590" y="2910">
+   </LINKPOINT>
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="67" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="11220" top="1620" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="11220" top="1620" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Bang">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Write">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="67" srcpinname="Y Output Value" dstnodeid="66" dstpinname="Write">
+   </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="68" systemname="IOBox (String)">
+   <BOUNDS type="Box" left="8805" top="1620" width="1755" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="8805" top="1620" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input String" slicecount="1" values="..\Calibration\world.dds">
+   </PIN>
+   <PIN pinname="Default" slicecount="1" values="render">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="|All Files (*.*)||*.*|">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="Filename">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|Output World Filename|">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="68" srcpinname="Output String" dstnodeid="66" dstpinname="Filename">
+   </LINK>
+   <NODE systemname="AspectRatio (DX11.Layer)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="AspectRatio (DX11.Layer)" componentmode="Hidden" id="69">
+   <BOUNDS type="Node" left="3570" top="5685" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Layer In" visible="1">
+   </PIN>
+   <PIN pinname="Layer Out" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="50" srcpinname="Layer Out" dstnodeid="69" dstpinname="Layer In">
+   </LINK>
+   <LINK srcnodeid="69" srcpinname="Layer Out" dstnodeid="38" dstpinname="Layers">
+   </LINK>
+   </PATCH>

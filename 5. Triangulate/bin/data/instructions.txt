@@ -7,9 +7,12 @@ First drag matrices into here:
 * projector-view.mat
 * projector-projection.mat
 
-Then drag a dataset into here
-(it must have the extension .sl).
+Then drag a dataset into here (it must
+have the extension .sl).
 
-At this time, the app will ask for
-the projector width and height
-(look out for the dialog box!)
+At this time, the app will ask for the
+projector width and height (look out
+for the dialog box!)
+
+Then you can save, please choose '.exr'
+extension.
