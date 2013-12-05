@@ -38,7 +38,7 @@ Grab a chessboard (either printed or on a screen). If you're using a paper chess
 
 Open the `0. Calibrate Camera\main.v4p` patch.
 
-Edit `Board Size x` and `Board Size y` to match your physical chessboard. 
+Edit `Board Size x` and `Board Size y` to match your physical chessboard. The `Board Pitch` doesn't matter for calibrating the camera.
 
 Make sure your camera isn't asleep and is attached via USB to your computer.
 
