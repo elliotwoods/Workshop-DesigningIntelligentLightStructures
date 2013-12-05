@@ -30,13 +30,34 @@ Check inside the 'vvvv' folder of the workshop files, you will see a few zip's.
 5. Run `crack.exe` inside the vvvv folder, and make sure all the boxes are green (not red). If they are red then follow the instructions.
 6. Run `vvvv.exe` and enjoy.
 
-## 0. Calibration
+## 0. Calibrate Camera
 
-### Intention
+Turn the lights on.
 
-Find 'Extrinsics' (relative pose of projector and camera).
+Grab a chessboard (either printed or on a screen). If you're using a paper chessboard, ensure it's backed onto a flat rigid surface (holding it in your hand is too floppy mate). The size (number of corners) and physical scale of your board don't matter too much, but make sure it's got square squares (not rectangles).
 
-Find 'Intrinsics' (shape of the view of projector and camera)
+Open the `0. Calibrate Camera\main.v4p` patch.
+
+Edit `Board Size x` and `Board Size y` to match your physical chessboard. 
+
+Make sure your camera isn't asleep and is attached via USB to your computer.
+
+__NOTE : Now we're about to start calibrating, note that from now on, __you should not change the focus or zoom of your camera. So best get that setup now before continuing. Often it's a good idea to tape down the focus and zoom rings so that they will not be changed later by accident.__
+
+Try hitting the `Shoot` button (right click): 
+
+* Does it take a photo? If not, perhaps your camera is asleep, try waking it up and hit `Refresh` at the top left of your patch. You should see the name of your camera underneath the `Info` node.
+* Does the photo appear on your computer screen? If not, then try restarting VVVV (perhaps you connected a projector to your computer since opening VVVV which will break the renderering). If this still doesn't work, then you may have to try a different computer, sorry :(.
+
+__NOTE : Make sure to delete all existing camera calibration captures before starting the calibration. Click (LMB) on the word `open` to the left of `Output Folder`, this will bring up a folder of camera capture data, clear this folder of files before continuing__
+
+Now try holding your chessboard in front of your camera, and hit `Shoot`, you should see the chessboard captured and VVVV should be drawing a red line over all the chessboard corners.
+
+
+Try to capture the chessbaord in about 8 to 20 different positions.
+Try to capture the chessboard in different corners of the camera image and different distances from the camera.
+
+When you have enough captures, hit `Calibrate` (RMB). Scroll down and read the `Reprojection Error`. It should be something like 0.5 to 2px. If it's much larger than this, then start again. If not, continue on!
 
 ## 1. Scan
 
