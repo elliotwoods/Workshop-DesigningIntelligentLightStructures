@@ -9,35 +9,99 @@ float2 R:TARGETSIZE;
 cbuffer controls:register(b0){
 	float4 Color <bool color=true;string uiname="Color";> = 1;
 	float4x4 InverseTransform;
+	bool Fade = true;
+	bool Crop = true;
+	float Phase = 0.0f;
+	float Gamma = 1.0f;
 }
 
-struct psInput
+struct Input
 {
 	float4 p : SV_Position;
 	float2 uv : TEXCOORD0;
 };
 
-float3 ApplySkin(float x) {
-	float4 col = Color;
-	col.rgb *= Color.a;
-	
-	float value = x < 1.0f;
-	value *= x;
-	
-	return value;//col.rgb * value;
-}
-
-float3 PS_Sphere(psInput input) : SV_Target
+float4 GetObject(Input input)
 {
 	float2 uv = R * input.uv;
 	float4 PosO;
 	PosO.xyz = world[uv];
-	PosO.w = 1.0f;
+	PosO.w = 1.0f;	
+	return PosO;
+}
 
+float3 GetWorld(float4 PosO)
+{
 	float4 PosW = mul(PosO, InverseTransform);
 	PosW /= PosW.w;
 	
-	return ApplySkin(length(PosW.xyz) * 2.0f);
+	return PosW.xyz;
+}
+
+bool GetValid(Input Input)
+{
+	float4 PosO = GetObject(Input);
+	bool valid = length(PosO.xyz )> 1e-7;
+	if (Crop) {
+		bool3 inBox = abs(GetWorld(PosO)) <= 0.5f;
+		valid = valid && all(inBox);
+	}
+	return valid;
+}
+
+bool all(bool3 input) {
+	return input.x && input.y && input.z;
+}
+
+float3 ApplyColor(float value)
+{
+	float4 col = Color;
+	col.rgb *= Color.a;
+	return pow(saturate(col.rgb * value), Gamma);
+}
+
+float ApplySkin(float x)
+{
+	float value = x <= 1.0f;
+	
+	if (Fade)
+	{
+		value *= x;
+	}
+	
+	return value;
+}
+
+float3 PS_Sphere(Input input) : SV_Target
+{
+	float3 xyz = GetWorld(GetObject(input));
+	float value = ApplySkin(length(xyz) * 2.0f);
+	return ApplyColor(value) * GetValid(input);
+}
+
+float3 PS_Box(Input input) : SV_Target
+{
+	float3 xyz = GetWorld(GetObject(input));
+	float value = ApplySkin(abs(xyz.y) * 2.0f);
+	
+	return ApplyColor(value) * GetValid(input);
+}
+
+float3 PS_SurfaceWave(Input input) : SV_Target
+{
+	float3 xyz = GetWorld(GetObject(input));
+	
+	float height = sin(length(xyz.xz) - Phase) / 2.0f;
+	float value = ApplySkin(height);
+	return ApplyColor(value) * GetValid(input);
+}
+
+float3 PS_SphericalWave(Input input) : SV_Target
+{
+	float3 xyz = GetWorld(GetObject(input));
+	
+	float value = (sin(length(xyz) - Phase) + 1.0f) / 2.0f;
+	return ApplyColor(value) * GetValid(input);
 }
 
 technique10 Sphere
@@ -48,5 +112,27 @@ technique10 Sphere
 	}
 }
 
+technique10 Box
+{
+	pass P0
+	{
+		SetPixelShader(CompileShader(ps_4_0,PS_Box()));
+	}
+}
 
+technique10 SurfaceWave
+{
+	pass P0
+	{
+		SetPixelShader(CompileShader(ps_4_0,PS_SurfaceWave()));
+	}
+}
+
+technique10 SphericalWave
+{
+	pass P0
+	{
+		SetPixelShader(CompileShader(ps_4_0,PS_SphericalWave()));
+	}
+}
 

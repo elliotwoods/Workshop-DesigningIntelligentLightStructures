@@ -1,7 +1,6 @@
-[0m[0mVVVV.CV.zip[0m
-[0maddons_45beta31.2_x86.zip[0m
-[0mfolderlist.txt[0m
-[01;32mvcredist_x86.exe[0m*
-[0mvvvv-packs-dx11-b31.2-x86_1.zip[0m
-[0mvvvv_45beta31.2_x86.zip[0m
-[m
+VVVV.CV.zip
+addons_45beta31.2_x86.zip
+folderlist.txt
+vcredist_x86.exe
+vvvv-packs-dx11-b31.2-x86_1.zip
+vvvv_45beta31.2_x86.zip
